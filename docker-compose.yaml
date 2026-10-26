@@ -1,5 +1,12 @@
 services:
-
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - api
+      - client
   api:
     build: ./backend
     volumes: 
@@ -17,7 +24,7 @@ services:
   mongodb:
     image: mongo:7.0
     container_name: mongodb
-    restart: unless-stopped
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin123
